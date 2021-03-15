@@ -1,12 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from "../model/user";
 import {first, map} from "rxjs/operators";
-import {loginService} from "../../services/login-service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {AngularFireAuth} from "@angular/fire/auth";
 
 @Injectable()
 export class AuthService {
@@ -24,19 +22,20 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    public afAuth: AngularFireAuth
-) {
+  ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
+    this.loggedIn = new BehaviorSubject<boolean>(JSON.parse(localStorage.getItem('loggedIn') || '{}'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
 
   login(user: User): Observable<any> {
     return this.http.post<any>(this.valuesUrl + '/login', user).pipe(map(user => {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    this.currentUserSubject.next(user);
-    this.loggedIn.next(true)
-    return user;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('loggedIn', JSON.stringify(true))
+        this.currentUserSubject.next(user);
+        this.loggedIn.next(true)
+        return user;
       }
     ));
   }
@@ -45,6 +44,10 @@ export class AuthService {
     this.currentUserSubject.next(null);
     this.loggedIn.next(false);
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('loggedIn');
     this.router.navigate(['/login']);
+  }
+  public getToken(): string {
+    return localStorage.getItem('currentUser' )|| '{}';
   }
 }

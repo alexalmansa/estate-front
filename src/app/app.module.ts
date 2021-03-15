@@ -18,13 +18,13 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./auth/auth.guard";
-import {loginService} from "../services/login-service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
+import {TokenInterceptor} from "./auth/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -52,7 +52,12 @@ import {AngularFireAuthModule} from "@angular/fire/auth";
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/],
-  bootstrap: [AppComponent]
+  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
