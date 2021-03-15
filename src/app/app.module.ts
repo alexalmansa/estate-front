@@ -20,6 +20,11 @@ import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./auth/auth.guard";
 import {loginService} from "../services/login-service";
 import {HttpClientModule} from "@angular/common/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../environments/environment";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {AngularFireAuthModule} from "@angular/fire/auth";
 
 @NgModule({
   declarations: [
@@ -42,9 +47,12 @@ import {HttpClientModule} from "@angular/common/http";
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AuthService, AuthGuard, /*loginService*/],
+  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

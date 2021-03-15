@@ -4,7 +4,16 @@
 
 export const environment = {
   production: false,
-  "API_URL": "http://localhost:3000"
+  "API_URL": "http://localhost:3000",
+  firebase: {
+    apiKey: "AIzaSyDS5YCtkS866wepPXoL9zlryflEVXMdErg",
+    authDomain: "estate-2a8da.firebaseapp.com",
+    projectId: "estate-2a8da",
+    storageBucket: "estate-2a8da.appspot.com",
+    messagingSenderId: "27258612870",
+    appId: "1:27258612870:web:5dd1cb9a4c18189b113507",
+    measurementId: "G-RHNP525G3Z"
+  }
 };
 
 /*
