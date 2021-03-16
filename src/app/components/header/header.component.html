@@ -1,5 +1,5 @@
 <p>
-  <mat-toolbar color="primary" *ngIf="isLoggedIn | async">
+  <mat-toolbar color="primary" *ngIf="!router.url.includes('login')">
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
@@ -8,6 +8,6 @@
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
       <mat-icon>person</mat-icon>
     </button>
-    <button mat-button (click)="onLogout()" *ngIf="isLoggedIn | async">Logout</button>
+    <button mat-button (click)="onLogout()" > Logout </button>
   </mat-toolbar>
 </p>

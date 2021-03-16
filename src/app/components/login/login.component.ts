@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth/auth.service";
+import {AuthService} from "../../auth/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 
@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.form.value)
         .subscribe(
           data => {
-            debugger
             this.router.navigate(['/']);
           },
           error => {
