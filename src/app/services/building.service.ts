@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../model/user";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {Building} from "../model/building";
 
 @Injectable({
@@ -20,9 +20,6 @@ export class BuildingService {
   ) { }
 
   getbuildings(): Observable<Building[]> {
-    return this.http.get<Building[]>(this.valuesUrl + '/getBuilding').pipe(map(buildings => {
-        return buildings;
-      }
-    ));
+    return this.http.get<Building[]>(this.valuesUrl + '/getBuilding');
   }
 }

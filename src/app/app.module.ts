@@ -26,13 +26,20 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatCheckbox, MatCheckboxModule} from "@angular/material/checkbox";
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {BuildingTableComponent} from './components/building-table/building-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    IconButtonComponent,
+    BuildingTableComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+    MatTooltipModule
   ],
   providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,
     {

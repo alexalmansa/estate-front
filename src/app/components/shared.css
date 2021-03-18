@@ -1,0 +1,87 @@
+table {
+  width: 100%;
+  margin-bottom: 70px;
+}
+
+.button-acciones {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.buscador {
+  font-size: 100% !important;
+  height: 70px;
+  overflow: auto;
+  padding: 0 24px;
+  display: flex;
+}
+
+.cont-listado {
+  position: relative;
+  height: calc(100vh - 215px);
+  background-color: white;
+}
+
+.cont-listado-small {
+  position: relative;
+  height: 500px;
+  background-color: white;
+}
+
+.center-icon {
+  left: 15px;
+}
+
+.cont-listado-parent {
+  overflow: hidden;
+}
+
+.cont-listado-child {
+  overflow: auto;
+}
+
+mat-icon:hover {
+  background-color: transparent!important;
+
+}
+
+mat-icon {
+  position: relative;
+  top: 0 !important;
+}
+
+mat-chip {
+  top: 0;
+}
+
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.green.mat-chip {
+  background-color: #66BB6A!important;
+  color: black!important;
+}
+
+.yellow.mat-chip {
+  background-color: #FFEE58!important;
+  color: black!important;
+}
+
+.red.mat-chip {
+  background-color: #EF5350!important;
+  color: white!important;
+}
+
+.blue.mat-chip {
+  background-color: #3B5998!important;
+  color: white!important;
+}
+
+.paginator-fixed .mat-paginator-page-size{
+  margin-right: -15px !important;
+}
+
+.disabled {
+  background: #e0e0e0!important;
+}
