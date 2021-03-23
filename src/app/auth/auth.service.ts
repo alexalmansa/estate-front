@@ -50,4 +50,8 @@ export class AuthService {
     }
     return token;
   }
+
+  getUserRole(){
+
+  }
 }

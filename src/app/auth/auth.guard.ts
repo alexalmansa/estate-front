@@ -12,16 +12,14 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ){
-    const currentUser =  this.authService.isLoggedIn;
-    if (currentUser){
+    if (this.authService.isLoggedIn){
       return true;
     }
     this.authService.logout();

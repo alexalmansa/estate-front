@@ -14,7 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import {MatCardModule} from "@angular/material/card";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./auth/auth.guard";
@@ -30,6 +30,13 @@ import {MatCheckbox, MatCheckboxModule} from "@angular/material/checkbox";
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {BuildingTableComponent} from './components/building-table/building-table.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+import { ProfileComponent } from './components/profile/profile.component';
+import { BuildingDetailsComponent } from './components/building-table/building-details/building-details.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
+import { AutocompleteComponent } from './components/building-table/building-details/auto-complete/auto-complete.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +46,10 @@ import {BuildingTableComponent} from './components/building-table/building-table
     HeaderComponent,
     IconButtonComponent,
     BuildingTableComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    BuildingDetailsComponent,
+    AutocompleteComponent
   ],
   imports: [
     BrowserModule,
@@ -62,9 +72,13 @@ import {BuildingTableComponent} from './components/building-table/building-table
     MatSortModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSidenavModule,
+    MatListModule,
+    MatDialogModule,
+    MatSelectModule,
   ],
-  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,
+  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,MatDialogModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

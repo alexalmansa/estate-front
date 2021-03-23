@@ -85,3 +85,6 @@ mat-chip {
 .disabled {
   background: #e0e0e0!important;
 }
+.mat-input-underline {
+  background-color: #FF0000;
+}
