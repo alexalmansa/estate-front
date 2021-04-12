@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BuildingService} from "../../services/building.service";
-import {AuthService} from "../../auth/auth.service";
-import {Observable} from "rxjs";
+
 import {Building} from "../../model/building";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
@@ -36,7 +35,6 @@ export class BuildingTableComponent implements OnInit {
 
   onClickNew(){
     this.dialog.open(BuildingDetailsComponent, {
-      width: '760px',
       data: {
         edit: false,
         create: true,
@@ -46,7 +44,13 @@ export class BuildingTableComponent implements OnInit {
   }
 
   onClickView(building: Building){
-
+    this.dialog.open(BuildingDetailsComponent, {
+      data: {
+        edit: true,
+        create: false,
+        building: building
+      }
+    });
   }
   onSelectElement(element){
     this.selectedBuilding = element;

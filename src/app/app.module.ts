@@ -37,6 +37,7 @@ import { BuildingDetailsComponent } from './components/building-table/building-d
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
 import { AutocompleteComponent } from './components/building-table/building-details/auto-complete/auto-complete.component';
+import {GoogleMapsModule} from "@angular/google-maps";
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { AutocompleteComponent } from './components/building-table/building-deta
     MatListModule,
     MatDialogModule,
     MatSelectModule,
+    GoogleMapsModule
   ],
   providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,MatDialogModule,
     {
