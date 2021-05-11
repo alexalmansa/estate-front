@@ -1,0 +1,110 @@
+<div class="head-detalle">
+  <span>
+    <h1 mat-dialog-title *ngIf="isEditing()">
+      Editar piso
+    </h1>
+    <h1 mat-dialog-title *ngIf="!isEditing()">
+      Crear piso
+    </h1>
+  </span>
+
+  <span class="fill-space"></span>
+
+</div>
+<div mat-dialog-content class="form-window">
+
+  <form [formGroup]="flatForm" class="full-width form-window " >
+    <mat-form-field class="full-width" style="margin-top: 20px">
+      <input
+
+        type="search"
+        placeholder="Edificio"
+        matInput
+        [value]="initialName"
+        [formControl]="buildingsFormControl"
+        #building
+        [matAutocomplete]="autoBuilding"
+        (focus)="onFocusSearchBuilding()"
+        aria-label="building"
+      >
+      <mat-autocomplete
+        #autoBuilding="matAutocomplete"
+        [displayWith]="displayFn"
+        (optionSelected)="onFlatChanged($event)">
+        <mat-option
+          *ngFor="let building of buildings | async"
+          [value]="building">
+          {{building.name}}
+
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div class="row-flex">
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Precio"
+             formControlName="price"
+             [ngModel]="flat?.asked_price">
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Area"
+             formControlName="area"
+             [ngModel]="flat?.area">
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Piso"
+             formControlName="floor"
+             [ngModel]="flat?.floor">
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Puerta"
+             formControlName="door_number"
+             [ngModel]="flat?.door_number">
+    </mat-form-field>
+    </div>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Fecha de la caldera"
+             formControlName="boiler_date"
+             [ngModel]="flat?.boiler_date">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Descripción de la caldera"
+             formControlName="boiler_description"
+             [ngModel]="flat?.boiler_description">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Inidice del precio"
+             formControlName="price_index"
+             [ngModel]="flat?.price_index">
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+
+  <button
+    mat-raised-button
+    (click)="closeDialog()">
+    Cerrar
+  </button>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onClickDelete()">
+    Eliminar
+  </button>
+
+
+  <span class="fill-space"></span>
+
+  <button
+    [class.spinner]="loading"
+    mat-raised-button
+    color="primary"
+    (click)="onClickSave()">
+    Guardar
+  </button>
+
+</div>

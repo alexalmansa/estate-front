@@ -1,0 +1,88 @@
+<div class="base-table-full-width">
+  <mat-toolbar class="buscador">
+      <span>
+        <button (click)="getLeases()" style="margin-left: -11px" mat-icon-button>
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </span>
+
+    <span class="fill-space"></span>
+
+    <h1>CONTRATOS DE ALQUILER </h1>
+
+    <span class="fill-space"></span>
+
+    <span>
+        <button
+          class="button-acciones"
+          color="primary"
+          mat-raised-button
+          (click)="onClickNew()">
+          Nuevo
+        </button>
+      </span>
+
+    <span>
+
+      </span>
+  </mat-toolbar>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="flat">
+      <th mat-header-cell *matHeaderCellDef> Piso </th>
+      <td mat-cell *matCellDef="let element"> {{getFlatName(element)}} </td>
+    </ng-container>
+    getBuildingName
+    <!-- Name Column -->
+    <ng-container matColumnDef="renter">
+      <th mat-header-cell *matHeaderCellDef> Inquilino </th>
+      <td mat-cell *matCellDef="let element"> {{getRenterName(element)}} </td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Precio </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="start_date">
+      <th mat-header-cell *matHeaderCellDef> Fecha Inicio </th>
+      <td mat-cell *matCellDef="let element"> {{getDate(element.start_date)}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="end_date">
+      <th mat-header-cell *matHeaderCellDef> Fecha Fin </th>
+      <td mat-cell *matCellDef="let element"> {{getDate(element.end_date)}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="deposit">
+      <th mat-header-cell *matHeaderCellDef> Deposito </th>
+      <td mat-cell *matCellDef="let element"> {{element.deposit}} € </td>
+    </ng-container>
+
+    <ng-container matColumnDef="info">
+      <th
+        mat-header-cell
+        style="padding-left: 10px;"
+        *matHeaderCellDef>Detalle</th>
+      <td mat-cell
+          style="padding-right: 8px; width: 90px;"
+          *matCellDef="let element"
+          class="col-listado-1">
+        <app-icon-button
+          [image]="'remove_red_eye'"
+          [tooltip]="'Detalles'"
+          (click)="onClickView(element)">
+        </app-icon-button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+
+  </table>
+
+</div>

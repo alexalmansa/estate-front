@@ -45,6 +45,10 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
 import { RenterTableComponent } from './components/tables/renter-table/renter-table.component';
 import { RenterDetailsComponent } from './components/tables/renter-table/renter-details/renter-details.component';
+import { LeaseTableComponent } from './components/tables/lease-table/lease-table.component';
+import { DatePipe } from '@angular/common';
+import { LeaseDetailComponent } from './components/tables/lease-table/lease-detail/lease-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -62,6 +66,8 @@ import { RenterDetailsComponent } from './components/tables/renter-table/renter-
     FlatDetailsComponent,
     RenterTableComponent,
     RenterDetailsComponent,
+    LeaseTableComponent,
+    LeaseDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +101,7 @@ import { RenterDetailsComponent } from './components/tables/renter-table/renter-
     MatAutocompleteModule
 
   ],
-  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,MatDialogModule,MatDatepickerModule,MatAutocompleteModule,
+  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,MatDialogModule,MatDatepickerModule,MatAutocompleteModule,DatePipe,
 
     {
       provide: HTTP_INTERCEPTORS,

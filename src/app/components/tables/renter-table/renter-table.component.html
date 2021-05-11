@@ -1,0 +1,64 @@
+
+<div class="base-table-full-width ">
+  <mat-toolbar>
+      <span>
+        <button (click)="getRenters()" style="margin-left: -11px" mat-icon-button>
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </span>
+    <span class="fill-space"></span>
+
+    <h1>INQUILINOS</h1>
+    <span class="fill-space"></span>
+
+    <span>
+        <button
+          class="button-acciones"
+          color="primary"
+          mat-raised-button
+          (click)="onClickNew()">
+          Nuevo
+        </button>
+      </span>
+
+    <span>
+
+      </span>
+  </mat-toolbar>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="nif">
+      <th mat-header-cell *matHeaderCellDef> NIF </th>
+      <td mat-cell *matCellDef="let element"> {{element.nif}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="info">
+      <th
+        mat-header-cell
+        style="padding-left: 10px;"
+        *matHeaderCellDef>Detalle</th>
+      <td mat-cell
+          style="padding-right: 8px; width: 90px;"
+          *matCellDef="let element"
+          class="col-listado-1">
+        <app-icon-button
+          [image]="'remove_red_eye'"
+          [tooltip]="'Detalles'"
+          (click)="onClickView(element)">
+        </app-icon-button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+
+  </table>
+</div>
