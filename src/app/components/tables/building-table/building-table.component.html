@@ -1,17 +1,14 @@
 
-<div class="container">
-  <mat-toolbar class="buscador">
+<div class="base-table-full-width ">
+  <mat-toolbar>
       <span>
-        <mat-form-field class="example-form-field">
-          <input
-            matInput
-            #buscador
-            type="text"
-            placeholder="Buscar por nombre"
-          >
-        </mat-form-field>
+        <button (click)="getBuildings()" style="margin-left: -11px" mat-icon-button>
+          <mat-icon>refresh</mat-icon>
+        </button>
       </span>
+    <span class="fill-space"></span>
 
+    <h1>EDIFICIOS</h1>
     <span class="fill-space"></span>
 
     <span>
@@ -30,22 +27,6 @@
   </mat-toolbar>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Check -->
-    <ng-container matColumnDef="check">
-      <th mat-header-cell
-          *matHeaderCellDef>
-        <button (click)="getBuildings()" style="margin-left: -11px" mat-icon-button>
-          <mat-icon>refresh</mat-icon>
-        </button>
-      </th>
-      <td mat-cell
-          *matCellDef="let element">
-        <mat-checkbox
-          #checkbox
-          (change)="onSelectElement(element)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">

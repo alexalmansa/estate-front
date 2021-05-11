@@ -4,14 +4,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/screens/home/home.component';
 
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/screens/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
@@ -27,17 +27,24 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatCheckbox, MatCheckboxModule} from "@angular/material/checkbox";
-import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { IconButtonComponent } from './components/utils/icon-button/icon-button.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
-import {BuildingTableComponent} from './components/building-table/building-table.component';
+import {BuildingTableComponent} from './components/tables/building-table/building-table.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import { ProfileComponent } from './components/profile/profile.component';
-import { BuildingDetailsComponent } from './components/building-table/building-details/building-details.component';
+import { ProfileComponent } from './components/screens/profile/profile.component';
+import { BuildingDetailsComponent } from './components/tables/building-table/building-details/building-details.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
-import { AutocompleteComponent } from './components/building-table/building-details/auto-complete/auto-complete.component';
+import { AutocompleteComponent } from './components/tables/building-table/building-details/auto-complete/auto-complete.component';
 import {GoogleMapsModule} from "@angular/google-maps";
+import { FlatTableComponent } from './components/tables/flat-table/flat-table.component';
+import { FlatDetailsComponent } from './components/tables/flat-table/flat-details/flat-details.component';
+import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatAutocomplete, MatAutocompleteModule} from "@angular/material/autocomplete";
+import { RenterTableComponent } from './components/tables/renter-table/renter-table.component';
+import { RenterDetailsComponent } from './components/tables/renter-table/renter-details/renter-details.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +57,11 @@ import {GoogleMapsModule} from "@angular/google-maps";
     HomeComponent,
     ProfileComponent,
     BuildingDetailsComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    FlatTableComponent,
+    FlatDetailsComponent,
+    RenterTableComponent,
+    RenterDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,9 +89,14 @@ import {GoogleMapsModule} from "@angular/google-maps";
     MatListModule,
     MatDialogModule,
     MatSelectModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatAutocompleteModule
+
   ],
-  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,MatDialogModule,
+  providers: [AuthService, AuthGuard, MatSnackBar/*loginService*/,MatDialogModule,MatDatepickerModule,MatAutocompleteModule,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

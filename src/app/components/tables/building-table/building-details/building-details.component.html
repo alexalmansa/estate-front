@@ -1,9 +1,9 @@
 <div class="head-detalle">
   <span>
-    <h1 mat-dialog-title *ngIf="!isCreating()">
+    <h1 mat-dialog-title *ngIf="isEditing()">
       Editar edificio
     </h1>
-    <h1 mat-dialog-title *ngIf="isCreating()">
+    <h1 mat-dialog-title *ngIf="!isEditing()">
       Crear edificio
     </h1>
   </span>
@@ -11,9 +11,9 @@
   <span class="fill-space"></span>
 
 </div>
-<div mat-dialog-content>
-  <div class="form-container">
-    <form [formGroup]="buildingForm" >
+<div mat-dialog-content class="form-window">
+
+    <form [formGroup]="buildingForm" class="full-width form-window " >
 
     <mat-form-field class="full-width">
       <input matInput placeholder="Nombre del edificio"
@@ -32,23 +32,30 @@
                placeholder="Direccion"
         >
       </mat-form-field>
-
-      <google-map #map  >
+      <google-map #map id="map" class="full-width" >
       </google-map>
     </form>
   </div>
-</div>
 
 <div mat-dialog-actions>
-
 
   <button
     [class.spinner]="loading"
     mat-raised-button
-    color="secondary"
+    (click)="closeDialog()">
+    Cerrar
+  </button>
+
+  <button
+    [class.spinner]="loading"
+    mat-raised-button
+    color="warn"
     (click)="onClickDelete()">
     Eliminar
   </button>
+
+
+  <span class="fill-space"></span>
 
   <button
     [class.spinner]="loading"

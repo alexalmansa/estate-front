@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {BuildingService} from "../../services/building.service";
+import {BuildingService} from "../../../services/building.service";
 
-import {Building} from "../../model/building";
+import {Building} from "../../../model/building";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {BuildingDetailsComponent} from "./building-details/building-details.component";
@@ -9,20 +9,19 @@ import {BuildingDetailsComponent} from "./building-details/building-details.comp
 @Component({
   selector: 'building-table',
   templateUrl: './building-table.component.html',
-  styleUrls: ['./building-table.component.css', '../shared.css']
+  styleUrls: ['./building-table.component.css', '../../shared.css']
 })
 export class BuildingTableComponent implements OnInit {
-  tableColumns: string[] = [ 'check' ,'name', 'direction', 'info'];
+  tableColumns: string[] = ['name', 'direction', 'info'];
   dataSource;
   selectedBuilding: Building;
 
   constructor(private buildingServiceService: BuildingService,
-              public dialog: MatDialog,) {
+              public dialog: MatDialog) {
     this.getBuildings()
   }
 
   ngOnInit(): void {
-    console.log(this.dataSource)
   }
 
   getBuildings(){
@@ -35,6 +34,7 @@ export class BuildingTableComponent implements OnInit {
 
   onClickNew(){
     this.dialog.open(BuildingDetailsComponent, {
+      width: '760px',
       data: {
         edit: false,
         create: true,
@@ -45,6 +45,7 @@ export class BuildingTableComponent implements OnInit {
 
   onClickView(building: Building){
     this.dialog.open(BuildingDetailsComponent, {
+      width: '760px',
       data: {
         edit: true,
         create: false,
@@ -52,9 +53,4 @@ export class BuildingTableComponent implements OnInit {
       }
     });
   }
-  onSelectElement(element){
-    this.selectedBuilding = element;
-    console.log(this.selectedBuilding);
-  }
-
 }

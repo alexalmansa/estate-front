@@ -1,19 +1,18 @@
 import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Building} from "../../../model/building";
-import {BuildingService} from "../../../services/building.service";
+import {Building} from "../../../../model/building";
+import {BuildingService} from "../../../../services/building.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {GoogleMap} from "@angular/google-maps";
 
 @Component({
   selector: 'app-building-details',
   templateUrl: './building-details.component.html',
-  styleUrls: ['./building-details.component.css', '../../shared.css']
+  styleUrls: ['./building-details.component.css', '../../../shared.css']
 })
 export class BuildingDetailsComponent implements OnInit, AfterViewInit {
   public editing: boolean;
-  public creating: boolean;
   public building: Building;
   public buildingForm: FormGroup;
   public loading: boolean;
@@ -50,17 +49,15 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
       const coordinates = new google.maps.LatLng(this.building.latitude,this.building.longitude);
       var options: google.maps.MapOptions = {
         center: coordinates,
-        zoom: 8,
+        zoom: 15,
       };
-
+      this.map.googleMap.setOptions(options);
       const marker = new google.maps.Marker({
         position: coordinates,
         title: "Marker 1"
       });
-      this.map.options = options;
 
       marker.setMap(this.map.googleMap);
-      marker.setClickable(true);
     }
     this.getPlaceAutocomplete();
   }
@@ -70,13 +67,6 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
       this.editing = true;
     } else {
       this.editing = false;
-    }
-
-    // Get data from params open dialog
-    if (this.data.create) {
-      this.creating = true;
-    } else {
-      this.creating = false;
     }
   }
 
@@ -105,14 +95,6 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
     return this.editing;
   }
 
-  isCreating() {
-    return this.creating;
-  }
-  onClickEdit() {
-    this.editing = true;
-    this.buildingForm.enable();
-  }
-
   get f() { return this.buildingForm.controls; }
   getAddress(event){
     console.log(event);
@@ -129,15 +111,14 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
     let newBuilding;
 
     if (this.isEditing()){
-      debugger
       if (this.place != null) {
         const newAddress = this.place.formatted_address;
         newBuilding = <Building>({
           id: this.building.id,
           name: newName,
           address: newAddress,
-          longitude: this.place.geometry.location.lat(),
-          latitude: this.place.geometry.location.lng(),
+          longitude: this.place.geometry.location.lng(),
+          latitude: this.place.geometry.location.lat(),
         })
       } else {
         newBuilding = <Building>({
@@ -171,6 +152,7 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
   closeDialog() {
     this.dialogRef.close();
     this.snackBar.open("Edificio modificado correctamente", "OK");

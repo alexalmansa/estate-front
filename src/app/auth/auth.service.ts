@@ -5,6 +5,8 @@ import {User} from "../model/user";
 import {first, map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {UserRegister} from "../model/user-register";
+import {ChangePassword} from "../model/change-password";
 
 @Injectable()
 export class AuthService {
@@ -13,6 +15,7 @@ export class AuthService {
   public currentUser: Observable<any>;
   // @ts-ignore
   private currentUserSubject: BehaviorSubject<any>;
+  public ROLE_ADMIN = 1
 
   get isLoggedIn() :boolean{
     return this.currentUser != null;
@@ -49,6 +52,18 @@ export class AuthService {
       return '';
     }
     return token;
+  }
+
+  getMe(): Observable<User>{
+    return this.http.get<User>(this.valuesUrl + '/me')
+  }
+
+  registerUser(userRegister: UserRegister){
+    return this.http.post<any>(this.valuesUrl + '/register', userRegister)
+  }
+
+  changePassword(changePass: ChangePassword){
+    return this.http.post<any>(this.valuesUrl+"/changePassword", changePass)
   }
 
   getUserRole(){

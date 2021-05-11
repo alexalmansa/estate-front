@@ -6,7 +6,7 @@
   </div>
 
 
-    <h1>{{title}}</h1>
+    <h1 (click)="goToHome()">{{title}}</h1>
     <span class="menu-spacer"></span>
     <div fxHide.xs>
       <a mat-button [routerLink]="'/accounts'"> Edificios </a>
@@ -14,7 +14,6 @@
       <a mat-button [routerLink]="'/contacts'"> Inquilinos </a>
       <a mat-button [routerLink]="'/create-contact'"> Obras </a>
       <a mat-button [routerLink]="'/activities'"> Contratos </a>
-
     </div>
 
     <span class="example-spacer"></span>
@@ -37,6 +36,8 @@
       <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
 
     </mat-nav-list>
-  </mat-sidenav>
 
+  </mat-sidenav>
+  <router-outlet>
+  </router-outlet>
 </mat-sidenav-container>

@@ -1,0 +1,80 @@
+<div class="base-screen">
+  <div class="base-container">
+
+    <mat-form [formGroup]="changePassGroup" (ngSubmit)="onSubmit()" novalidate class="centered-flex">
+
+
+        <mat-form-field class="full-width-textfield">
+          <input matInput class="half-width" type="email" [formControl]="email" [readonly]=true>
+        </mat-form-field>
+
+
+
+        <mat-form-field class="full-width-textfield">
+          <input matInput type="password" placeholder="Contraseña vieja" formControlName="password" required
+                 id="password"
+                 [formControl]="password">
+          <ul *ngIf="password.dirty && !password.valid">
+            <li *ngIf="password.hasError('required')">Se necessita una contraseña</li>
+            <li *ngIf="password.hasError('minlength')">La contraseña tiene que tener por lo menos {{minPassLength}} carácteres</li>
+          </ul>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-textfield">
+          <input matInput type="password" placeholder="Contraseña nueva" formControlName="newPassword" required
+                 id="passwordNew"
+                 [formControl]="newPassword">
+          <ul *ngIf="password.dirty && !password.valid">
+            <li *ngIf="password.hasError('required')">Se necessita una contraseña</li>
+            <li *ngIf="password.hasError('minlength')">La contraseña tiene que tener por lo menos {{minPassLength}} carácteres</li>
+          </ul>
+        </mat-form-field>
+      <mat-form-field class="full-width-textfield">
+        <input matInput type="password" placeholder="Confirmacion contraseña nueva" formControlName="newPasswordRepeat"
+               required id="passwordNewRepeat"
+               [formControl]="newPasswordRepeat">
+        <ul *ngIf="password.dirty && !password.valid">
+          <li *ngIf="password.hasError('required')">Se necessita una contraseña</li>
+          <li *ngIf="password.hasError('minlength')">La contraseña tiene que tener por lo menos {{minPassLength}} carácteres</li>
+        </ul>
+      </mat-form-field>
+      <button mat-raised-button class="margin-top" color="primary" (click)="changePassword()">Cambiar Contraseña</button>
+
+    </mat-form>
+
+  <div *ngIf="isAdmin">
+    <h1 class="margin-top"> Registrar nuevos usuarios</h1>
+
+    <mat-form [formGroup]="groupRegister" (ngSubmit)="onSubmit()" novalidate class="centered-flex">
+
+        <mat-form-field class="full-width-textfield">
+          <input matInput type="email" id="email" placeholder="Email" [formControl]="emailRegister">
+        </mat-form-field>
+
+
+        <mat-form-field class="full-width-textfield">
+          <input matInput type="password" placeholder="Contraseña" formControlName="passwordRegister" required
+                 [formControl]="passwordRegister">
+          <ul *ngIf="passwordRegister.dirty && !passwordRegister.valid">
+            <li *ngIf="passwordRegister.hasError('required')">Se necessita una contraseña</li>
+            <li *ngIf="passwordRegister.hasError('minlength')">La contraseña tiene que tener por lo menos {{minPassLength}} carácteres</li>
+          </ul>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-textfield">
+          <input matInput type="password" placeholder="Confirmar Contraseña" formControlName="passwordRegisterRepeat" required
+                 [formControl]="passwordRegisterRepeat">
+          <ul *ngIf="passwordRegisterRepeat.dirty && !passwordRegisterRepeat.valid">
+            <li *ngIf="passwordRegisterRepeat.hasError('required')">Se necessita una contraseña</li>
+            <li *ngIf="passwordRegisterRepeat.hasError('minlength')">La contraseña tiene que tener por lo menos {{minPassLength}} carácteres</li>
+          </ul>
+        </mat-form-field>
+
+      <div *ngIf="errorPasswords">
+          <h4 class="mat-error"> Las contraseñas no coinciden</h4>
+        </div>
+        <button mat-raised-button class="margin-top" color="primary" (click)="registerUser()">Registrar nuevo usuario</button>
+    </mat-form>
+  </div>
+  </div>
+</div>

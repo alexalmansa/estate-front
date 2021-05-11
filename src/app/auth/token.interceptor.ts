@@ -3,10 +3,12 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpResponse, HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
+import {catchError} from "rxjs/operators";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -19,6 +21,12 @@ export class TokenInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${this.auth.getToken()}`
       }
     });
-    return next.handle(request);
+    return next.handle(request).pipe(catchError(err => {
+      if (err.status === 401) {
+        this.auth.logout()
+      }
+      const error = err.error.message || err.statusText;
+      return throwError(error);
+    }));
   }
 }

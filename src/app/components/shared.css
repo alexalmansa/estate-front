@@ -28,10 +28,6 @@ table {
   background-color: white;
 }
 
-.center-icon {
-  left: 15px;
-}
-
 .cont-listado-parent {
   overflow: hidden;
 }
@@ -108,3 +104,62 @@ mat-chip {
   animation: spinner .8s linear infinite;
 }
 
+.base-screen{
+  margin: 0px;
+  min-height: 90vh;
+}
+.full-screen{
+  margin: 0px;
+  min-height: 100vh;
+}
+
+.base-container{
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.base-table-full-width {
+  width: 95%!important;
+  margin-right: 5%;
+}
+.flex-space{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.full-width {
+  width: 95%!important;
+  margin-right: 5%;
+}
+
+
+.half-width {
+  min-width: 45%!important;
+  margin-right: 5%;
+}
+.full-width-textfield {
+  width: 95%;
+  max-width: 500px;
+}
+.centered-flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row-flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.self_center{
+  align-self: center;
+}
+.margin-top {
+  margin-top: 16px;
+}

@@ -9,3 +9,7 @@ mat-sidenav{
 main{
   padding: 10px;
 }
+
+mat-drawer-container{
+  background-color: #616161;
+}
