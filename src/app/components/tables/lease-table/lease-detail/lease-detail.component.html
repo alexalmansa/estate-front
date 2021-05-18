@@ -18,10 +18,10 @@
       <input
 
         type="search"
-        placeholder="Edificio"
+        placeholder="Piso"
         matInput
         [value]="initialName"
-        [formControl]="buildingsFormControl"
+        [formControl]="flatsFormControl"
         #flat
         [matAutocomplete]="autoBuilding"
         (focus)="onFocusSearchFlat()"
@@ -32,7 +32,8 @@
         [displayWith]="displayFn"
         (optionSelected)="onFlatChanged($event)">
         <mat-option
-          *ngFor="let flat of allFlats "
+          *ngFor="let flat of filteredFlats | async"
+          [value]="flat"
           >
           {{getFlatName(flat.id)}}
 
@@ -40,33 +41,61 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Inquilino"
-             formControlName="renter"
-             [ngModel]="lease?.renter_id">
+    <mat-form-field class="full-width" style="margin-top: 20px">
+      <input
+
+        type="search"
+        placeholder="Inquilino"
+        matInput
+        [value]="initialRenter"
+        [formControl]="rentersFormControl"
+        #renter
+        [matAutocomplete]="autoRenter"
+        (focus)="onFocusSearchRenter()"
+        aria-label="building"
+      >
+      <mat-autocomplete
+        #autoRenter="matAutocomplete"
+        [displayWith]="displayFnRenter"
+        (optionSelected)="onRenterChanged($event)">
+        <mat-option
+          *ngFor="let renter of filteredRenters | async"
+          [value]="renter"
+        >
+          {{renter.name}}
+
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
+
     <div class="row-flex">
       <mat-form-field class="half-width">
         <input matInput placeholder="Precio"
                formControlName="price"
                [ngModel]="lease?.price">
+        <span style="margin-left:-20px;">€</span>
       </mat-form-field>
 
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Fecha de inicio"
-               formControlName="start_date"
-               [ngModel]="lease?.start_date">
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput placeholder="Fecha de fin"
-               formControlName="end_date"
-               [ngModel]="lease?.end_date">
-      </mat-form-field>
       <mat-form-field class="half-width">
         <input matInput placeholder="Deposito"
                formControlName="deposit"
                [ngModel]="lease?.deposit">
+        <span style="margin-left:-20px;">€</span>
       </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput [matDatepicker]="picker1" placeholder="Fecha de inicio" [formControl]="startDate" >
+        <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+        <mat-datepicker  #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput [matDatepicker]="picker2" placeholder="Fecha de fin" [formControl]="endDate" >
+        <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
+        <mat-datepicker  #picker2></mat-datepicker>
+      </mat-form-field>
+
+
+
     </div>
 
 

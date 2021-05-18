@@ -35,7 +35,7 @@ export class RenterTableComponent implements OnInit {
   }
 
   onClickNew(){
-    this.dialog.open(RenterDetailsComponent, {
+    let dialog = this.dialog.open(RenterDetailsComponent, {
       width: '760px',
       data: {
         edit: false,
@@ -43,16 +43,24 @@ export class RenterTableComponent implements OnInit {
         renter: this.selectedRenter
       }
     });
+    dialog.afterClosed().subscribe(() => {
+      debugger;
+      this.getRenters();
+    });
   }
 
   onClickView(building: Building){
-    this.dialog.open(RenterDetailsComponent, {
+    let dialog = this.dialog.open(RenterDetailsComponent, {
       width: '760px',
       data: {
         edit: true,
         create: false,
         renter: building
       }
+    });
+    dialog.afterClosed().subscribe(() => {
+      debugger;
+      this.getRenters();
     });
   }
 }

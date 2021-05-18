@@ -34,32 +34,11 @@ export class FlatTableComponent implements OnInit {
   }
 
   getFlats() {
-    this.flatService.getFlats().subscribe(data => {
+    this.flatService.getFlats(this.buildingId).subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
       },
       error => {
       })
-  }
-
-  onClickNew() {
-    this.dialog.open(FlatDetailsComponent, {
-      width: '760px',
-      data: {
-        edit: false,
-        create: true,
-      }
-    });
-  }
-
-  onClickView(flat: Flat) {
-    this.dialog.open(FlatDetailsComponent, {
-      width: '760px',
-      data: {
-        edit: true,
-        create: false,
-        flat: flat
-      }
-    });
   }
 
   getBuildingName(flat: Flat) {
@@ -74,5 +53,34 @@ export class FlatTableComponent implements OnInit {
       return buildingOut.name;
     }
     return ""
+  }
+
+  onClickNew() {
+    let dialog = this.dialog.open(FlatDetailsComponent, {
+      width: '760px',
+      data: {
+        edit: false,
+        create: true,
+      }
+    });
+    dialog.afterClosed().subscribe(() => {
+      debugger;
+      this.getFlats();
+    });
+  }
+
+  onClickView(flat: Flat) {
+    let dialog = this.dialog.open(FlatDetailsComponent, {
+      width: '760px',
+      data: {
+        edit: true,
+        create: false,
+        flat: flat
+      }
+    });
+    dialog.afterClosed().subscribe(() => {
+      debugger;
+      this.getFlats();
+    });
   }
 }

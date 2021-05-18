@@ -45,22 +45,28 @@
       <input matInput placeholder="Precio"
              formControlName="price"
              [ngModel]="flat?.asked_price">
+      <span style="margin-left:-20px;">€</span>
+
     </mat-form-field>
 
     <mat-form-field class="half-width">
       <input matInput placeholder="Area"
              formControlName="area"
              [ngModel]="flat?.area">
+      <span style="margin-left:-20px;">m²</span>
+
     </mat-form-field>
     <mat-form-field class="half-width">
       <input matInput placeholder="Piso"
              formControlName="floor"
              [ngModel]="flat?.floor">
+      <span style="margin-left:-20px;">º</span>
     </mat-form-field>
     <mat-form-field class="half-width">
       <input matInput placeholder="Puerta"
              formControlName="door_number"
              [ngModel]="flat?.door_number">
+      <span style="margin-left:-20px;">ª</span>
     </mat-form-field>
     </div>
     <mat-form-field class="full-width">

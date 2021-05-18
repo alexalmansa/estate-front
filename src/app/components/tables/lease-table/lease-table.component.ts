@@ -61,7 +61,7 @@ export class LeaseTableComponent implements OnInit {
   }
 
   onClickNew() {
-    this.dialog.open(LeaseDetailComponent, {
+   let dialog =  this.dialog.open(LeaseDetailComponent, {
       width: '760px',
       data: {
         edit: false,
@@ -70,10 +70,14 @@ export class LeaseTableComponent implements OnInit {
         allRenters: this.allRenters
       }
     });
+    dialog.afterClosed().subscribe(() => {
+      debugger;
+      this.getLeases();
+    });
   }
 
   onClickView(lease: Lease) {
-    this.dialog.open(LeaseDetailComponent, {
+    let dialog = this.dialog.open(LeaseDetailComponent, {
       width: '760px',
       data: {
         edit: true,
@@ -82,6 +86,10 @@ export class LeaseTableComponent implements OnInit {
         allBuildings: this.allBuildings,
         allRenters: this.allRenters
       }
+    });
+    dialog.afterClosed().subscribe(() => {
+      debugger;
+      this.getLeases();
     });
   }
 

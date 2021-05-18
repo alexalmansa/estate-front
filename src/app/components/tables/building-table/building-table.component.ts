@@ -15,13 +15,13 @@ export class BuildingTableComponent implements OnInit {
   tableColumns: string[] = ['name', 'direction', 'info'];
   dataSource;
   selectedBuilding: Building;
-
   constructor(private buildingServiceService: BuildingService,
               public dialog: MatDialog) {
     this.getBuildings()
   }
 
   ngOnInit(): void {
+
   }
 
   getBuildings(){
@@ -33,7 +33,7 @@ export class BuildingTableComponent implements OnInit {
   }
 
   onClickNew(){
-    this.dialog.open(BuildingDetailsComponent, {
+    let dialogref = this.dialog.open(BuildingDetailsComponent, {
       width: '760px',
       data: {
         edit: false,
@@ -41,16 +41,24 @@ export class BuildingTableComponent implements OnInit {
         building: this.selectedBuilding
       }
     });
+    dialogref.afterClosed().subscribe(() => {
+      debugger;
+      this.getBuildings();
+    });
   }
 
   onClickView(building: Building){
-    this.dialog.open(BuildingDetailsComponent, {
+    let dialogref = this.dialog.open(BuildingDetailsComponent, {
       width: '760px',
       data: {
         edit: true,
         create: false,
         building: building
       }
+    });
+    dialogref.afterClosed().subscribe(() => {
+      debugger;
+      this.getBuildings();
     });
   }
 }

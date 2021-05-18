@@ -154,8 +154,8 @@ export class FlatDetailsComponent implements OnInit {
   onFlatChanged(event: MatAutocompleteSelectedEvent) {
     this.errorFlats = false;
     this.emptyFlats = false;
-
       this.buildingSelected = event.option.value.id;
+
      /*else if (!this.machineSelectedList.includes(event.option.value)) {
       this.errorFlats = true;
     }*/
