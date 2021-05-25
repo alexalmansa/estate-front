@@ -163,6 +163,7 @@ export class LeaseDetailComponent implements OnInit {
     this.triggerFlat._onChange(this.flatsFormControl.value);
     this.triggerFlat.openPanel();
   }
+
   onFocusSearchRenter() {
     this.triggerRenter._onChange(this.rentersFormControl.value);
     this.triggerRenter.openPanel();
@@ -173,7 +174,6 @@ export class LeaseDetailComponent implements OnInit {
   }
 
   displayFnRenter = renter => {
-    //TODO: NOT SURE
     return renter ? renter.name : this.initialRenter;
   }
 

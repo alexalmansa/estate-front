@@ -25,7 +25,6 @@ export class FlatService {
   }
 
   postFlat(flat: Flat){
-    debugger
     return this.http.post(this.valuesUrl + '/create', flat)
   }
 

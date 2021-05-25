@@ -1,0 +1,101 @@
+<div class="head-detalle">
+  <span>
+    <h1 mat-dialog-title *ngIf="isEditing()">
+      Editar reformas
+    </h1>
+    <h1 mat-dialog-title *ngIf="!isEditing()">
+      Crear reformas
+    </h1>
+  </span>
+
+  <span class="fill-space"></span>
+
+</div>
+<div mat-dialog-content class="form-window">
+
+  <form [formGroup]="leaseForm" class="full-width form-window " >
+    <mat-form-field class="full-width" style="margin-top: 20px">
+      <input
+
+        type="search"
+        placeholder="Piso"
+        matInput
+        [value]="initialName"
+        [formControl]="flatsFormControl"
+        #flat
+        [matAutocomplete]="autoBuilding"
+        (focus)="onFocusSearchFlat()"
+        aria-label="building"
+      >
+      <mat-autocomplete
+        #autoBuilding="matAutocomplete"
+        [displayWith]="displayFn"
+        (optionSelected)="onFlatChanged($event)">
+        <mat-option
+          *ngFor="let flat of filteredFlats | async"
+          [value]="flat"
+        >
+          {{getFlatName(flat.id)}}
+
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+    <div class="row-flex">
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Precio"
+               formControlName="price"
+               [ngModel]="alteration?.price">
+        <span style="margin-left:-20px;">€</span>
+      </mat-form-field>
+
+
+
+      <mat-form-field class="half-width">
+        <input matInput [matDatepicker]="picker1" placeholder="Fecha de inicio" [formControl]="date" >
+        <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+        <mat-datepicker  #picker1></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field class="full-width ">
+      <textarea matInput placeholder="Descripción"
+             formControlName="description"
+                rows="10"
+                id="textArea"
+                [value]="alteration?.description"
+              ></textarea>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+
+  <button
+    mat-raised-button
+    (click)="closeDialog()">
+    Cerrar
+  </button>
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onClickDelete()">
+    Eliminar
+  </button>
+
+
+  <span class="fill-space"></span>
+
+  <button
+    [class.spinner]="loading"
+    mat-raised-button
+    color="primary"
+    (click)="onClickSave()">
+    Guardar
+  </button>
+
+</div>

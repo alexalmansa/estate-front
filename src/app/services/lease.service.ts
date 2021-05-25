@@ -14,8 +14,20 @@ export class LeaseService {
   constructor(private router: Router,
               private http: HttpClient,) { }
 
-  getLeases(): Observable<Lease[]> {
-    return this.http.get<Lease[]>(this.valuesUrl + '/getLease')
+  getLeases(pastLeases?: boolean, flatId?: number, renterId?: number): Observable<Lease[]> {
+    let query = this.valuesUrl + '/getLease' + '?';
+    if (pastLeases == false){
+      query = query + 'past_leases=false'
+    }else{
+      query = query + 'past_leases=true'
+    }
+    if (flatId != null) {
+      query = query + '&flat_id=' + flatId;
+    }
+    if (renterId != null) {
+      query = query + '&renter_id=' + renterId;
+    }
+    return this.http.get<Lease[]>(query)
   }
 
   postLease(lease: Lease){

@@ -132,15 +132,23 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
         this.closeDialog();
       });
     }else {
+      if (this.place != null) {
         newBuilding = <Building>({
           name: newName,
           address: newAddress,
           longitude: this.place.longitude,
           latitude: this.place.latitude
         })
-      this.buildingService.postBuilding(newBuilding).subscribe(() => {
-        this.closeDialog();
-      });
+      } else {
+        newBuilding = <Building>({
+          id: this.building.id,
+          name: newName,
+          address: newAddress,
+        })
+        this.buildingService.postBuilding(newBuilding).subscribe(() => {
+          this.closeDialog();
+        });
+      }
     }
   }
 

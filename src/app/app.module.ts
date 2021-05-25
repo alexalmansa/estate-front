@@ -48,6 +48,8 @@ import { RenterDetailsComponent } from './components/tables/renter-table/renter-
 import { LeaseTableComponent } from './components/tables/lease-table/lease-table.component';
 import { DatePipe } from '@angular/common';
 import { LeaseDetailComponent } from './components/tables/lease-table/lease-detail/lease-detail.component';
+import { AlterationTableComponent } from './components/tables/alteration-table/alteration-table.component';
+import { AlterationDetailsComponent } from './components/tables/alteration-table/alteration-details/alteration-details.component';
 
 
 @NgModule({
@@ -68,6 +70,8 @@ import { LeaseDetailComponent } from './components/tables/lease-table/lease-deta
     RenterDetailsComponent,
     LeaseTableComponent,
     LeaseDetailComponent,
+    AlterationTableComponent,
+    AlterationDetailsComponent,
   ],
   imports: [
     BrowserModule,

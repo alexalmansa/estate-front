@@ -13,6 +13,7 @@ import {DatePipe} from "@angular/common";
 import {MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {FormControl} from "@angular/forms";
 import {LeaseDetailComponent} from "./lease-detail/lease-detail.component";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-lease-table',
@@ -20,12 +21,14 @@ import {LeaseDetailComponent} from "./lease-detail/lease-detail.component";
   styleUrls: ['./lease-table.component.css', '../../shared.css']
 })
 export class LeaseTableComponent implements OnInit {
+  @ViewChild('butonPast') buttonPast: MatButton;
 
   tableColumns: string[] = ['flat','renter', 'price', 'start_date', 'end_date', 'deposit', 'info'];
   dataSource;
   allFlats;
   allRenters;
   allBuildings;
+  pastLeases = true;
   constructor(private flatService: FlatService,
               public dialog: MatDialog,
               private renterService: RenterService,
@@ -40,7 +43,7 @@ export class LeaseTableComponent implements OnInit {
   }
 
   getLeases() {
-    this.leasesService.getLeases().subscribe(data => {
+    this.leasesService.getLeases(this.pastLeases).subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
       },
       error => {
@@ -60,6 +63,16 @@ export class LeaseTableComponent implements OnInit {
     });
   }
 
+  onClickPastLeases(){
+    this.pastLeases = !this.pastLeases;
+    if (this.pastLeases){
+      this.buttonPast.color = "primary";
+    }else{
+      this.buttonPast.color = "accent";
+    }
+    this.getLeases();
+  }
+
   onClickNew() {
    let dialog =  this.dialog.open(LeaseDetailComponent, {
       width: '760px',
@@ -71,7 +84,6 @@ export class LeaseTableComponent implements OnInit {
       }
     });
     dialog.afterClosed().subscribe(() => {
-      debugger;
       this.getLeases();
     });
   }
@@ -88,7 +100,6 @@ export class LeaseTableComponent implements OnInit {
       }
     });
     dialog.afterClosed().subscribe(() => {
-      debugger;
       this.getLeases();
     });
   }

@@ -44,7 +44,6 @@ export class RenterTableComponent implements OnInit {
       }
     });
     dialog.afterClosed().subscribe(() => {
-      debugger;
       this.getRenters();
     });
   }
@@ -59,7 +58,6 @@ export class RenterTableComponent implements OnInit {
       }
     });
     dialog.afterClosed().subscribe(() => {
-      debugger;
       this.getRenters();
     });
   }

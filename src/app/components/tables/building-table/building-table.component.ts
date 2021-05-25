@@ -42,7 +42,6 @@ export class BuildingTableComponent implements OnInit {
       }
     });
     dialogref.afterClosed().subscribe(() => {
-      debugger;
       this.getBuildings();
     });
   }
@@ -57,7 +56,6 @@ export class BuildingTableComponent implements OnInit {
       }
     });
     dialogref.afterClosed().subscribe(() => {
-      debugger;
       this.getBuildings();
     });
   }

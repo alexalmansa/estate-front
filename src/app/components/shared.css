@@ -134,6 +134,10 @@ mat-chip {
   margin-right: 5%;
 }
 
+.heigth {
+  height: 50px;
+}
+
 
 .half-width {
   min-width: 45%!important;
@@ -163,3 +167,4 @@ mat-chip {
 .margin-top {
   margin-top: 16px;
 }
+textarea { height: auto; }
