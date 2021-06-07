@@ -5,6 +5,7 @@ import {Building} from "../../../../model/building";
 import {BuildingService} from "../../../../services/building.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {GoogleMap} from "@angular/google-maps";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-building-details',
@@ -28,6 +29,7 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private buildingService: BuildingService,
     public snackBar: MatSnackBar,
+    public router: Router
   )
   {
     this.buildingForm = new FormGroup({});
@@ -159,6 +161,16 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
         this.closeDialog();
       });
     }
+  }
+
+  oncClickOpenFlats(){
+    this.router.navigate(['/flats'], {
+      queryParams: {
+        buildingId: this.building.id.toString()
+      },
+      queryParamsHandling: 'merge',
+    });
+    this.dialogRef.close();
   }
 
   closeDialog() {

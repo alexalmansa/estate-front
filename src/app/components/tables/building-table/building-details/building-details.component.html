@@ -61,8 +61,15 @@
     [class.spinner]="loading"
     mat-raised-button
     color="primary"
+    (click)="oncClickOpenFlats()">
+    Ver pisos
+  </button>
+
+  <button
+    [class.spinner]="loading"
+    mat-raised-button
+    color="primary"
     (click)="onClickSave()">
     Guardar
   </button>
-
 </div>

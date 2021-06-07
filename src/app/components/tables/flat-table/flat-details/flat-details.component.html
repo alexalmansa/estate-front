@@ -13,7 +13,7 @@
 </div>
 <div mat-dialog-content class="form-window">
 
-  <form [formGroup]="flatForm" class="full-width form-window " >
+  <form [formGroup]="flatForm" class="full-width form-window ">
     <mat-form-field class="full-width" style="margin-top: 20px">
       <input
 
@@ -39,25 +39,6 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-
-    <div class="row-flex">
-    <mat-form-field class="half-width">
-      <input matInput placeholder="Precio"
-             restrict-input="^[0-9-]*$"
-             formControlName="price"
-             [ngModel]="flat?.asked_price">
-      <span style="margin-left:-20px;">€</span>
-
-    </mat-form-field>
-
-    <mat-form-field class="half-width">
-      <input matInput placeholder="Area"
-             formControlName="area"
-             restrict-input="^[0-9-]*$"
-             [ngModel]="flat?.area">
-      <span style="margin-left:-20px;">m²</span>
-
-    </mat-form-field>
     <mat-form-field class="half-width">
       <input matInput placeholder="Piso"
              restrict-input="^[0-9-]*$"
@@ -72,6 +53,26 @@
              [ngModel]="flat?.door_number">
       <span style="margin-left:-20px;">ª</span>
     </mat-form-field>
+
+    <div class="row-flex">
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Precio"
+               restrict-input="^[0-9-]*$"
+               formControlName="price"
+               [ngModel]="flat?.asked_price">
+        <span style="margin-left:-20px;">€</span>
+
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput placeholder="Area"
+               formControlName="area"
+               restrict-input="^[0-9-]*$"
+               [ngModel]="flat?.area">
+        <span style="margin-left:-20px;">m²</span>
+
+      </mat-form-field>
+
     </div>
     <mat-form-field class="full-width">
       <input matInput placeholder="Fecha de la caldera"
@@ -89,6 +90,9 @@
              [ngModel]="flat?.price_index">
     </mat-form-field>
   </form>
+  <div *ngIf="isEditing()">
+    <app-file-table [flatId]="flat.id"></app-file-table>
+  </div>
 </div>
 
 <div mat-dialog-actions>
@@ -109,6 +113,20 @@
 
   <span class="fill-space"></span>
 
+  <button
+    [class.spinner]="loading"
+    mat-raised-button
+    color="primary"
+    (click)="onClickOpenLeases()">
+    Ver contratos
+  </button>
+  <button
+    [class.spinner]="loading"
+    mat-raised-button
+    color="primary"
+    (click)="onClickOpenAlterations()">
+    Ver reformas
+  </button>
   <button
     [class.spinner]="loading"
     mat-raised-button

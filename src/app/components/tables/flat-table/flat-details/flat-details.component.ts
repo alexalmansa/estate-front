@@ -10,6 +10,7 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from "@angular/mat
 import {Machine} from "../../../../../../../../../projectes/doorwifi-frontend/doorwifi-frontend/src/esat-frontend/src/app/classes/machines";
 import {Observable} from "rxjs";
 import {debounceTime, switchMap} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-flat-details',
@@ -39,7 +40,8 @@ export class FlatDetailsComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private flatService: FlatService,
               public snackBar: MatSnackBar,
-              private buildingService: BuildingService
+              private buildingService: BuildingService,
+              public router: Router
               ) {
     this.flatForm = new FormGroup({});
     this.flatForm = this.formBuilder.group({
@@ -67,10 +69,6 @@ export class FlatDetailsComponent implements OnInit {
         this.initialName = buildingOut.name;
       });
     }
-
-  }
-
-  ngOnInit(): void {
     this.buildings = this.buildingsFormControl.valueChanges
       .pipe(
         debounceTime(300),
@@ -78,6 +76,11 @@ export class FlatDetailsComponent implements OnInit {
           return this.buildingService.getbuildings();
         })
       );
+
+  }
+
+  ngOnInit(): void {
+
     if (this.data.edit) {
       this.editing = true;
     } else {
@@ -159,6 +162,23 @@ export class FlatDetailsComponent implements OnInit {
      /*else if (!this.machineSelectedList.includes(event.option.value)) {
       this.errorFlats = true;
     }*/
-
+  }
+  onClickOpenLeases(){
+    this.router.navigate(['/leases'], {
+      queryParams: {
+        flatId: this.flat.id
+      },
+      queryParamsHandling: 'merge',
+    });
+    this.dialogRef.close();
+  }
+  onClickOpenAlterations(){
+    this.router.navigate(['/alterations'], {
+      queryParams: {
+        flatId: this.flat.id
+      },
+      queryParamsHandling: 'merge',
+    });
+    this.dialogRef.close();
   }
 }

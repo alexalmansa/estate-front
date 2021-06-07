@@ -11,7 +11,29 @@
     <h1>CONTRATOS DE ALQUILER </h1>
 
     <span class="fill-space"></span>
+    <input
 
+      type="search"
+      placeholder="Piso"
+      [value]="initialName"
+      [formControl]="flatsFormControl"
+      #flat
+      [matAutocomplete]="autoFlat"
+      (focus)="onFocusSearchFlat()"
+      aria-label="building"
+      (ngModelChange)="onTextChanged($event)"
+    >
+    <mat-autocomplete
+      #autoFlat="matAutocomplete"
+      [displayWith]="displayFn"
+      (optionSelected)="onFlatChanged($event)">
+      <mat-option
+        *ngFor="let flat of filteredFlats | async"
+        [value]="flat">
+        {{getFlatName(flat.id)}}
+
+      </mat-option>
+    </mat-autocomplete>
     <span>
       <button
         class="button-acciones"
@@ -41,7 +63,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="flat">
       <th mat-header-cell *matHeaderCellDef> Piso </th>
-      <td mat-cell *matCellDef="let element"> {{getFlatName(element)}} </td>
+      <td mat-cell *matCellDef="let element"> {{getFlatName(element.flat_id)}} </td>
     </ng-container>
     getBuildingName
     <!-- Name Column -->

@@ -4,14 +4,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './components/screens/home/home.component';
+import { HomeComponent } from './screens/home/home.component';
 
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
-import { LoginComponent } from './components/screens/login/login.component';
+import { LoginComponent } from './screens/login/login.component';
 import { HeaderComponent } from './components/header/header.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule, MatLabel} from "@angular/material/form-field";
@@ -32,7 +32,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {BuildingTableComponent} from './components/tables/building-table/building-table.component';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import { ProfileComponent } from './components/screens/profile/profile.component';
+import { ProfileComponent } from './screens/profile/profile.component';
 import { BuildingDetailsComponent } from './components/tables/building-table/building-details/building-details.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
@@ -50,6 +50,12 @@ import { DatePipe } from '@angular/common';
 import { LeaseDetailComponent } from './components/tables/lease-table/lease-detail/lease-detail.component';
 import { AlterationTableComponent } from './components/tables/alteration-table/alteration-table.component';
 import { AlterationDetailsComponent } from './components/tables/alteration-table/alteration-details/alteration-details.component';
+import { FileTableComponent } from './components/tables/file-table/file-table.component';
+import { BuildingsComponent } from './screens/buildings/buildings.component';
+import { FlatsComponent } from './screens/flats/flats.component';
+import { BackButtonComponent } from './components/utils/back-button/back-button.component';
+import { LeasesComponent } from './screens/leases/leases.component';
+import { AlterationsComponent } from './screens/alterations/alterations.component';
 
 
 @NgModule({
@@ -72,6 +78,12 @@ import { AlterationDetailsComponent } from './components/tables/alteration-table
     LeaseDetailComponent,
     AlterationTableComponent,
     AlterationDetailsComponent,
+    FileTableComponent,
+    BuildingsComponent,
+    FlatsComponent,
+    BackButtonComponent,
+    LeasesComponent,
+    AlterationsComponent,
   ],
   imports: [
     BrowserModule,

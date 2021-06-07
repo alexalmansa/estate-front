@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../../auth/auth.service";
-import {User} from "../../../model/user";
-import {UserRegister} from "../../../model/user-register";
+import {AuthService} from "../../auth/auth.service";
+import {User} from "../../model/user";
+import {UserRegister} from "../../model/user-register";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {ChangePassword} from "../../../model/change-password";
+import {ChangePassword} from "../../model/change-password";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css', '../../shared.css']
+  styleUrls: ['./profile.component.css', '../../components/shared.css']
 })
 export class ProfileComponent implements OnInit {
 

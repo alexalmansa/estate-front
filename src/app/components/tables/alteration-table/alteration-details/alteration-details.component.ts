@@ -58,7 +58,7 @@ export class AlterationDetailsComponent implements OnInit {
       description: ['', Validators.required]
     });
     this.alteration = this.data.alteration;
-    this.leaseForm.patchValue({description: this.alteration.description});
+    this.leaseForm.patchValue({description: this.alteration?.description});
   }
 
   ngOnInit(): void {

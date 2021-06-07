@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FlatService} from "../../../services/flat.service";
 import {MatDialog} from "@angular/material/dialog";
 import {BuildingService} from "../../../services/building.service";
@@ -10,10 +10,12 @@ import {Flat} from "../../../model/flat";
 import {Lease} from "../../../model/lease";
 import {browser} from "protractor";
 import {DatePipe} from "@angular/common";
-import {MatAutocompleteTrigger} from "@angular/material/autocomplete";
+import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {FormControl} from "@angular/forms";
 import {LeaseDetailComponent} from "./lease-detail/lease-detail.component";
 import {MatButton} from "@angular/material/button";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-lease-table',
@@ -22,6 +24,9 @@ import {MatButton} from "@angular/material/button";
 })
 export class LeaseTableComponent implements OnInit {
   @ViewChild('butonPast') buttonPast: MatButton;
+  @ViewChild('flat', { read: MatAutocompleteTrigger }) triggerFlat: MatAutocompleteTrigger;
+
+  @Input() flatId: number;
 
   tableColumns: string[] = ['flat','renter', 'price', 'start_date', 'end_date', 'deposit', 'info'];
   dataSource;
@@ -29,6 +34,11 @@ export class LeaseTableComponent implements OnInit {
   allRenters;
   allBuildings;
   pastLeases = true;
+  public initialName: string;
+  public flatsFormControl = new FormControl();
+  public filteredFlats: Observable<Flat[]>;
+
+
   constructor(private flatService: FlatService,
               public dialog: MatDialog,
               private renterService: RenterService,
@@ -40,27 +50,42 @@ export class LeaseTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filteredFlats = this.flatsFormControl.valueChanges
+      .pipe(
+        map( ( x => this.filterFlats(x))))
   }
 
   getLeases() {
-    this.leasesService.getLeases(this.pastLeases).subscribe(data => {
+    this.leasesService.getLeases(this.pastLeases, this.flatId).subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
       },
       error => {
       })
   }
   gettAllInfo(){
+    debugger;
     this.flatService.getFlats().subscribe(data => {
         this.allFlats = data;
+        this.renterService.getrenters().subscribe(data => {
+          this.allRenters = data;
+          this.buildingService.getbuildings().subscribe(buildings => {
+            this.allBuildings = buildings;
+            let flat_id = this.flatId;
+            let flatSelected;
+            this.allFlats.forEach(function (flat) {
+              if (flat.id == flat_id) {
+                flatSelected = flat;
+              }
+            })
+            if (flatSelected != null){
+              this.initialName = this.getFlatName(flatSelected.id);
+              this.getLeases()
+            }
+          });
+        });
       },
       error => {
       });
-    this.renterService.getrenters().subscribe(data => {
-      this.allRenters = data;
-    });
-    this.buildingService.getbuildings().subscribe(buildings => {
-      this.allBuildings = buildings;
-    });
   }
 
   onClickPastLeases(){
@@ -70,6 +95,37 @@ export class LeaseTableComponent implements OnInit {
     }else{
       this.buttonPast.color = "accent";
     }
+    this.getLeases();
+  }
+
+  //Filter flats region
+  filterFlats(filter: any) : Flat[]{
+    if (filter != null && filter instanceof String) {
+      filter = filter.toLowerCase()
+    }
+    let filteredFlats = [];
+    this.allFlats.forEach(flat => {
+      if (this.getFlatName(flat.id).toLowerCase().startsWith(filter)) {
+        filteredFlats.push(flat);
+      }
+    })
+    return filteredFlats
+  }
+  onFocusSearchFlat() {
+    this.triggerFlat._onChange(this.flatsFormControl.value);
+    this.triggerFlat.openPanel();
+  }
+  onTextChanged(newText: string){
+    if (newText == ""){
+      this.flatId = null;
+      this.getLeases()
+    }
+  }
+  displayFn = flat => {
+    return flat ? this.getFlatName(flat.id) : undefined;
+  }
+  onFlatChanged(event: MatAutocompleteSelectedEvent) {
+    this.flatId = event.option.value.id;
     this.getLeases();
   }
 
@@ -104,12 +160,12 @@ export class LeaseTableComponent implements OnInit {
     });
   }
 
-  getFlatName(lease: Lease) {
+  getFlatName(flatId: number) {
     let buildingOut, flatOut;
 
     if (this.allBuildings != null && this.allFlats != null) {
       this.allFlats.forEach(function (flat) {
-        if (flat.id == lease.flat_id) {
+        if (flat.id == flatId) {
           flatOut = flat;
         }
       })

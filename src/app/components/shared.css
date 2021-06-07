@@ -106,7 +106,7 @@ mat-chip {
 
 .base-screen{
   margin: 0px;
-  min-height: 90vh;
+  min-height: 95vh;
 }
 .full-screen{
   margin: 0px;
@@ -158,6 +158,14 @@ mat-chip {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: stretch;
+}
+
+.row-flex-left{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
   align-items: stretch;
 }
 
