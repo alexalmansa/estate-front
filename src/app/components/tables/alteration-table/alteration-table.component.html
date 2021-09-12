@@ -9,10 +9,10 @@
     <span class="fill-space"></span>
 
     <div *ngIf="!(flatId != null) || alterations == null">
-      <h1>OBRAS </h1>
+      <h1>REFORMAS </h1>
     </div>
     <div *ngIf="flatId != null && alterations != null">
-      <h2> OBRAS PISO {{getFlatName(alterations[0].flat_id)}}</h2>
+      <h2> REFORMAS PISO {{getFlatName(alterations[0].flat_id)}}</h2>
     </div>
 
     <span class="fill-space"></span>
@@ -32,7 +32,8 @@
       <mat-autocomplete
         #autoFlat="matAutocomplete"
         [displayWith]="displayFn"
-        (optionSelected)="onFlatChanged($event)">
+        (optionSelected)="onFlatChanged($event)"
+        [panelWidth]="450">
         <mat-option
           *ngFor="let flat of filteredFlats | async"
           [value]="flat">

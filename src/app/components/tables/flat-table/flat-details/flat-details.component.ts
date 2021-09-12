@@ -9,7 +9,7 @@ import {Flat} from "../../../../model/flat";
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {Machine} from "../../../../../../../../../projectes/doorwifi-frontend/doorwifi-frontend/src/esat-frontend/src/app/classes/machines";
 import {Observable} from "rxjs";
-import {debounceTime, switchMap} from "rxjs/operators";
+import {debounceTime, map, switchMap} from "rxjs/operators";
 import {Router} from "@angular/router";
 
 @Component({
@@ -32,7 +32,9 @@ export class FlatDetailsComponent implements OnInit {
   public flat: Flat;
   public initialName: string;
   public buildingsFormControl = new FormControl();
-  buildings: Observable<Building[]>;
+  public buildings;
+
+  public filteredBuildings: Observable<Building[]>;
 
 
   constructor(public dialogRef: MatDialogRef<FlatDetailsComponent>,
@@ -56,6 +58,7 @@ export class FlatDetailsComponent implements OnInit {
 
     });
     this.flat = this.data.flat;
+    this.buildings = this.data.buildings;
     if (this.flat != null) {
       this.buildingSelected = this.flat.building_id;
       this.buildingService.getbuildings().subscribe(buildings => {
@@ -69,23 +72,18 @@ export class FlatDetailsComponent implements OnInit {
         this.initialName = buildingOut.name;
       });
     }
-    this.buildings = this.buildingsFormControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        switchMap((value: string) => {
-          return this.buildingService.getbuildings();
-        })
-      );
-
   }
 
   ngOnInit(): void {
-
     if (this.data.edit) {
       this.editing = true;
     } else {
       this.editing = false;
     }
+    this.filteredBuildings = this.buildingsFormControl.valueChanges
+      .pipe(
+        map((x => this.filterBuildings(x)))
+      )
   }
 
   isEditing() {
@@ -147,13 +145,16 @@ export class FlatDetailsComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close();
   }
+
   onFocusSearchBuilding() {
     this.triggerBuilding._onChange(this.buildingsFormControl.value);
     this.triggerBuilding.openPanel();
   }
+
   displayFn(building?: any): string | undefined {
     return building ? building.name : undefined;
   }
+
   onFlatChanged(event: MatAutocompleteSelectedEvent) {
     this.errorFlats = false;
     this.emptyFlats = false;
@@ -163,6 +164,7 @@ export class FlatDetailsComponent implements OnInit {
       this.errorFlats = true;
     }*/
   }
+
   onClickOpenLeases(){
     this.router.navigate(['/leases'], {
       queryParams: {
@@ -172,6 +174,7 @@ export class FlatDetailsComponent implements OnInit {
     });
     this.dialogRef.close();
   }
+
   onClickOpenAlterations(){
     this.router.navigate(['/alterations'], {
       queryParams: {
@@ -180,5 +183,18 @@ export class FlatDetailsComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
     this.dialogRef.close();
+  }
+
+  filterBuildings(filter: any) : Building[]{
+    if (filter != null && filter instanceof String) {
+      filter = filter.toLowerCase()
+    }
+    let filteredBuildings = [];
+    this.buildings.forEach(building => {
+      if (building.name.toLowerCase().startsWith(filter)) {
+        filteredBuildings.push(building);
+      }
+    })
+    return filteredBuildings
   }
 }

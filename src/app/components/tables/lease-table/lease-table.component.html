@@ -25,6 +25,7 @@
     >
     <mat-autocomplete
       #autoFlat="matAutocomplete"
+      [panelWidth]="450"
       [displayWith]="displayFn"
       (optionSelected)="onFlatChanged($event)">
       <mat-option

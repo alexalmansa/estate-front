@@ -65,8 +65,4 @@ export class AuthService {
   changePassword(changePass: ChangePassword){
     return this.http.post<any>(this.valuesUrl+"/changePassword", changePass)
   }
-
-  getUserRole(){
-
-  }
 }

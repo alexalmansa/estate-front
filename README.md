@@ -1,10 +1,13 @@
 # EstateFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+Run `ng build --configuration production` To build a production version of the front-end
+
+Run `lite-server --baseDir="dist/estate-front"`To run a server with the deployment folder
 
 ## Code scaffolding
 

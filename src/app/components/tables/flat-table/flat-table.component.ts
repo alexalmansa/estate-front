@@ -9,7 +9,7 @@ import {FlatDetailsComponent} from "./flat-details/flat-details.component";
 import {BuildingService} from "../../../services/building.service";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
-import {debounceTime, switchMap} from "rxjs/operators";
+import {debounceTime, map, switchMap} from "rxjs/operators";
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 
 @Component({
@@ -22,7 +22,8 @@ export class FlatTableComponent implements OnInit {
   allBuildings;
   public initialName: string;
   public buildingsFormControl = new FormControl();
-  buildings: Observable<Building[]>;
+
+  public filteredBuildings: Observable<Building[]>;
 
 
   @Input() buildingId: number;
@@ -38,6 +39,10 @@ export class FlatTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filteredBuildings = this.buildingsFormControl.valueChanges
+      .pipe(
+        map((x => this.filterBuildings(x)))
+      )
     this.getFlats()
   }
 
@@ -64,13 +69,6 @@ export class FlatTableComponent implements OnInit {
         this.initialName = buildingOut.name;
       }
     });
-    this.buildings = this.buildingsFormControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        switchMap((value: string) => {
-          return this.buildingService.getbuildings();
-        })
-      );
   }
 
   onFocusSearchBuilding() {
@@ -89,6 +87,7 @@ export class FlatTableComponent implements OnInit {
     }
 
   }
+
   onFlatChanged(event: MatAutocompleteSelectedEvent) {
     this.buildingId = event.option.value.id;
     this.getFlats();
@@ -113,7 +112,7 @@ export class FlatTableComponent implements OnInit {
       width: '760px',
       data: {
         edit: false,
-        create: true,
+        buildings: this.allBuildings
       }
     });
     dialog.afterClosed().subscribe(() => {
@@ -126,12 +125,24 @@ export class FlatTableComponent implements OnInit {
       width: '760px',
       data: {
         edit: true,
-        create: false,
-        flat: flat
+        flat: flat,
+        buildings: this.allBuildings
       }
     });
     dialog.afterClosed().subscribe(() => {
       this.getFlats();
     });
+  }
+  filterBuildings(filter: any) : Building[]{
+    if (filter != null && filter instanceof String) {
+      filter = filter.toLowerCase()
+    }
+    let filteredBuildings = [];
+    this.allBuildings.forEach(building => {
+      if (building.name.toLowerCase().startsWith(filter)) {
+        filteredBuildings.push(building);
+      }
+    })
+    return filteredBuildings
   }
 }

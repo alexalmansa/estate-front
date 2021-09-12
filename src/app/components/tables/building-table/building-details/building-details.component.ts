@@ -147,10 +147,11 @@ export class BuildingDetailsComponent implements OnInit, AfterViewInit {
           name: newName,
           address: newAddress,
         })
+      }
         this.buildingService.postBuilding(newBuilding).subscribe(() => {
           this.closeDialog();
         });
-      }
+
     }
   }
 

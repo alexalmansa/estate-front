@@ -63,7 +63,6 @@ export class LeaseTableComponent implements OnInit {
       })
   }
   gettAllInfo(){
-    debugger;
     this.flatService.getFlats().subscribe(data => {
         this.allFlats = data;
         this.renterService.getrenters().subscribe(data => {

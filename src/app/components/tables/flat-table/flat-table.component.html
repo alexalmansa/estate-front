@@ -35,7 +35,7 @@
         [displayWith]="displayFn"
         (optionSelected)="onFlatChanged($event)">
         <mat-option
-          *ngFor="let building of buildings | async"
+          *ngFor="let building of filteredBuildings | async"
           [value]="building">
           {{building.name}}
 

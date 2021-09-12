@@ -12,7 +12,8 @@
       <a mat-button [routerLink]="'/buildings'"> Edificios </a>
       <a mat-button [routerLink]="'/flats'"> Pisos </a>
       <a mat-button [routerLink]="'/leases'"> Contratos </a>
-      <a mat-button [routerLink]="'/alterations'"> Obras </a>
+      <a mat-button [routerLink]="'/alterations'"> Reformas </a>
+      <a mat-button [routerLink]="'/renters'"> Inquilinos </a>
     </div>
 
     <span class="example-spacer"></span>
@@ -29,8 +30,9 @@
       <a mat-list-item [routerLink]="'/buildings'"> Edificios </a>
       <a mat-list-item [routerLink]="'/flats'"> Pisos </a>
       <a mat-list-item [routerLink]="'/leases'"> Contratos </a>
-      <a mat-list-item [routerLink]="'/alterations'"> Obras </a>
-      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+      <a mat-list-item [routerLink]="'/alterations'"> Reformas </a>
+      <a mat-list-item [routerLink]="'/renters'"> Inquilinos </a>
+      <a mat-list-item (click)="sidenav.toggle()"  mat-list-item>Cerrar</a>
 
     </mat-nav-list>
 

@@ -167,6 +167,7 @@ mat-chip {
   flex-wrap: wrap;
   justify-content: left;
   align-items: stretch;
+  align-self: flex-start;
 }
 
 .self_center{
